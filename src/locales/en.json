@@ -1,0 +1,29 @@
+{
+  "app": {
+    "title": "TileTrainBot",
+    "tagline": "Open-source RoboCup Junior training toolkit"
+  },
+  "nav": {
+    "editor": "Tile Editor",
+    "sim": "Simulator",
+    "trainer": "Trainer",
+    "exporter": "Exporter",
+    "analytics": "Analytics"
+  },
+  "editor": {
+    "title": "Tile Editor",
+    "hint": "Drag tiles from the library onto the grid. Snap: 297 mm.",
+    "library": "Tile Library",
+    "random": "Randomize",
+    "clear": "Clear",
+    "save": "Save Field",
+    "load": "Load Field",
+    "rotate": "Rotate 90°",
+    "delete": "Delete"
+  },
+  "sim": { "title": "Simulator", "play": "Play", "pause": "Pause", "reset": "Reset", "speed": "Speed" },
+  "trainer": { "title": "Trainer", "start": "Start Training", "stop": "Stop" },
+  "exporter": { "title": "Exporter", "target": "Target", "generate": "Generate Package" },
+  "analytics": { "title": "Analytics" },
+  "common": { "language": "Language", "theme": "Theme", "it": "Italian", "en": "English" }
+}

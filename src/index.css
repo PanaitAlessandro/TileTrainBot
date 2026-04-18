@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-50: #eef4ff;
+  --color-brand-400: #7c96ff;
+  --color-brand-500: #5b7cfa;
+  --color-brand-600: #3b5de0;
+  --color-brand-700: #2a46b8;
+  --color-accent-400: #22d3ee;
+  --color-accent-500: #06b6d4;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  color-scheme: dark;
+  background-color: #05060a;
+  background-image:
+    radial-gradient(ellipse 80% 55% at 18% 0%, rgba(91, 124, 250, 0.22), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 85% 100%, rgba(34, 211, 238, 0.18), transparent 65%),
+    linear-gradient(180deg, #07080d 0%, #05060a 100%);
+  background-attachment: fixed;
+}
+
+/* Subtle animated grid overlay — behind everything, pointer-events none. */
+.tech-grid::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 42px 42px, 42px 42px;
+  mask-image: radial-gradient(ellipse at center, black 45%, transparent 85%);
+  animation: gridDrift 30s linear infinite;
+  z-index: 0;
+}
+
+@keyframes gridDrift {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: 42px 42px, 42px 42px; }
+}
+
+@keyframes sheen {
+  0% { transform: translateX(-120%) skewX(-18deg); }
+  100% { transform: translateX(220%) skewX(-18deg); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 18px rgba(91, 124, 250, 0.35), 0 0 0 1px rgba(91, 124, 250, 0.45) inset; }
+  50%      { box-shadow: 0 0 32px rgba(124, 150, 255, 0.55), 0 0 0 1px rgba(124, 150, 255, 0.65) inset; }
+}
+
+/* Reusable utility classes */
+.glass {
+  background: linear-gradient(180deg, rgba(24, 27, 36, 0.72), rgba(12, 14, 20, 0.7));
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    0 20px 40px -20px rgba(0, 0, 0, 0.6);
+}
+
+.glass-strong {
+  background: linear-gradient(180deg, rgba(30, 34, 46, 0.85), rgba(14, 16, 23, 0.82));
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glow-brand {
+  box-shadow:
+    0 0 0 1px rgba(91, 124, 250, 0.45) inset,
+    0 0 24px rgba(91, 124, 250, 0.28);
+}
+
+.glow-accent {
+  box-shadow:
+    0 0 0 1px rgba(34, 211, 238, 0.45) inset,
+    0 0 24px rgba(34, 211, 238, 0.28);
+}
+
+.tilt-3d {
+  transform-style: preserve-3d;
+  transition: transform 220ms ease;
+}
+.tilt-3d:hover {
+  transform: perspective(900px) rotateX(3deg) rotateY(-3deg) translateZ(4px);
+}
+
+/* Shine sweep — apply to position:relative wrapper with overflow:hidden */
+.shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.08) 50%, transparent 70%);
+  transform: translateX(-120%) skewX(-18deg);
+  animation: sheen 4.5s ease-in-out 1.5s infinite;
+  pointer-events: none;
+}
+
+.active-glow {
+  animation: pulseGlow 2.8s ease-in-out infinite;
+}
+
+/* Gradient text for titles */
+.text-gradient {
+  background: linear-gradient(135deg, #e7ecff 0%, #7c96ff 45%, #22d3ee 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.scroll-thin::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.scroll-thin::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(91, 124, 250, 0.5), rgba(34, 211, 238, 0.35));
+  border-radius: 4px;
+}
+.scroll-thin::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(91, 124, 250, 0.8), rgba(34, 211, 238, 0.55));
+}
+.scroll-thin::-webkit-scrollbar-track {
+  background: transparent;
+}

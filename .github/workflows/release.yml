@@ -1,0 +1,90 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*.*.*"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-14
+            target: aarch64-apple-darwin
+            rust_target: aarch64-apple-darwin
+          - os: macos-13
+            target: x86_64-apple-darwin
+            rust_target: x86_64-apple-darwin
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            rust_target: x86_64-pc-windows-msvc
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.rust_target }}
+
+      - uses: swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - run: npm ci
+
+      - name: Build Tauri bundle
+        run: npm run tauri -- build --target ${{ matrix.rust_target }}
+
+      - name: Stage artifacts (macOS)
+        if: startsWith(matrix.os, 'macos')
+        shell: bash
+        run: |
+          mkdir -p dist-release
+          find src-tauri/target/${{ matrix.rust_target }}/release/bundle -name "*.dmg" -exec cp {} dist-release/ \;
+
+      - name: Stage artifacts (Windows)
+        if: startsWith(matrix.os, 'windows')
+        shell: bash
+        run: |
+          mkdir -p dist-release
+          find src-tauri/target/${{ matrix.rust_target }}/release/bundle -name "*.msi" -exec cp {} dist-release/ \;
+          find src-tauri/target/${{ matrix.rust_target }}/release/bundle -name "*.exe" -exec cp {} dist-release/ \;
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tiletrainbot-${{ matrix.target }}
+          path: dist-release/*
+
+  release:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Stage installers for release
+        run: |
+          mkdir -p release-files
+          find artifacts -type f \( -name "*.dmg" -o -name "*.msi" -o -name "*.exe" \) -exec cp {} release-files/ \;
+          cp install.sh release-files/
+          cp install.ps1 release-files/
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: release-files/*
+          generate_release_notes: true
+          draft: false
+          prerelease: false

@@ -1,0 +1,29 @@
+{
+  "app": {
+    "title": "TileTrainBot",
+    "tagline": "Toolkit open-source per RoboCup Junior"
+  },
+  "nav": {
+    "editor": "Editor Tile",
+    "sim": "Simulatore",
+    "trainer": "Trainer",
+    "exporter": "Exporter",
+    "analytics": "Analytics"
+  },
+  "editor": {
+    "title": "Editor Tile",
+    "hint": "Trascina le tile dalla libreria sulla griglia. Snap: 297 mm.",
+    "library": "Libreria Tile",
+    "random": "Casuale",
+    "clear": "Pulisci",
+    "save": "Salva Campo",
+    "load": "Carica Campo",
+    "rotate": "Ruota 90°",
+    "delete": "Elimina"
+  },
+  "sim": { "title": "Simulatore", "play": "Avvia", "pause": "Pausa", "reset": "Reset", "speed": "Velocità" },
+  "trainer": { "title": "Trainer", "start": "Avvia Training", "stop": "Stop" },
+  "exporter": { "title": "Exporter", "target": "Target", "generate": "Genera Pacchetto" },
+  "analytics": { "title": "Analytics" },
+  "common": { "language": "Lingua", "theme": "Tema", "it": "Italiano", "en": "Inglese" }
+}

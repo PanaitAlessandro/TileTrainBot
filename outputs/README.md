@@ -1,0 +1,1 @@
+## i suggest using this as output dir for "Output dir" in the training section

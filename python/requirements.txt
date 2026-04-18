@@ -1,0 +1,17 @@
+# Install into a venv and pass its python via Settings › Python path.
+# Mock skeleton only needs stdlib; real training requires the extras below.
+#
+# CPU / Pi / Coral path:
+#   super-gradients==3.7.1        # YOLO-NAS (Apache 2.0)
+#   onnx==1.17.0
+#   onnxruntime==1.19.2
+#   tensorflow==2.17.0            # saved_model → tflite
+#   tflite-support==0.4.4         # Coral INT8 metadata
+#
+# Microcontroller path (RP2040 / ESP32):
+#   tensorflow==2.17.0            # exports tflite micro
+#   pillow==10.4.0
+#
+# RL imitation:
+#   gymnasium==0.29.1
+#   stable-baselines3==2.3.2
