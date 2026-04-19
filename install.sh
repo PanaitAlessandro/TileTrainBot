@@ -60,7 +60,7 @@ if [[ -z "$MOUNT" || ! -d "$MOUNT/$APP_NAME" ]]; then
   exit 1
 fi
 
-echo "→ Installing to $DEST…"
+echo "→ Installing to ${DEST}…"
 rm -rf "$DEST/$APP_NAME"
 cp -R "$MOUNT/$APP_NAME" "$DEST/"
 hdiutil detach "$MOUNT" >/dev/null
